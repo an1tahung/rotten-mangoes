@@ -1,4 +1,7 @@
 class ReviewsController < ApplicationController
+
+  before_filter :load_movie
+
   def new
     @movie = Movie.find(params[:movie_id])
     @review = @movie.reviews.build
