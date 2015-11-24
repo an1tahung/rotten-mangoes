@@ -1,4 +1,6 @@
 class Movie < ActiveRecord::Base
+  belongs_to :actor
+
   has_many :reviews
 
   validates :title,
@@ -8,7 +10,7 @@ class Movie < ActiveRecord::Base
     presence: true
 
   validates :runtime_in_minutes,
-    numericality: {only_integer: true}
+    numericality: { only_integer: true }
 
   validates :description,
     presence: true
@@ -16,23 +18,20 @@ class Movie < ActiveRecord::Base
   validates :poster_image_url,
     presence: true
 
-  validates :title,
-  presence: true
-
   validates :release_date,
     presence: true
 
-  validate :release_date_is_in_the_past
+  validate :release_date_is_in_the_future
 
   def review_average
-    reviews.sum(:rating_out_of_ten)/(reviews.size.nonzero? || 1)
+    reviews.sum(:rating_out_of_ten)/((reviews.size).nonzero? || 1)
   end
 
   protected
 
-  def release_date_is_in_the_past
+  def release_date_is_in_the_future
     if release_date.present?
-      errors.add(:release_date, "should be in the past") if release_date > Date.today
+      errors.add(:release_date, "should probably be in the future") if release_date < Date.today
     end
   end
 end
