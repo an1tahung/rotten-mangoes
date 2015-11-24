@@ -6,7 +6,8 @@ one:
   runtime_in_minutes: 1
   description: MyText
   poster_image_url: MyString
-  release_date: 2015-11-24 00:59:46
+  release_date: 2015-11-24 08:00:17
+  actor_id: 
 
 two:
   title: MyString
@@ -14,4 +15,5 @@ two:
   runtime_in_minutes: 1
   description: MyText
   poster_image_url: MyString
-  release_date: 2015-11-24 00:59:46
+  release_date: 2015-11-24 08:00:17
+  actor_id: 
