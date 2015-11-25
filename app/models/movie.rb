@@ -1,7 +1,9 @@
 class Movie < ActiveRecord::Base
-  belongs_to :actor
+  has_many :actors
 
   has_many :reviews
+
+  mount_uploader :poster_image_url, ImageUploader
 
   validates :title,
     presence: true
