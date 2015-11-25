@@ -1,0 +1,7 @@
+<h1>Rotten Mangoes Admin Page</h1>
+<%= link_to "Back to movies!", movies_path %>
+<hr>
+<% @users.each do |user| %>
+  <h3><%= user.full_name %></h3>
+<hr>
+<% end %>
