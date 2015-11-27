@@ -9,7 +9,6 @@ class Admin::UsersController < ApplicationController
 private
 
   def authorized?
-
     unless current_user && current_user.admin == true
       flash[:error] = "You are not authorized to view that page."
       redirect_to root_path

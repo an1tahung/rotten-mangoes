@@ -27,7 +27,6 @@ class ActorsController < ApplicationController
 
   def update 
     @actor = Actor.find(params[:id])
-
     if @actor.update_attributes(actor_params)
       redirect_to actor_path(@actor)
     else
