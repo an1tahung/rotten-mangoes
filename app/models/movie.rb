@@ -29,13 +29,22 @@ class Movie < ActiveRecord::Base
     reviews.sum(:rating_out_of_ten)/((reviews.size).nonzero? || 1)
   end
 
-  def self.search(title, director)
+  def self.search(title, director,duration)
     @movies = Movie.all
-    if !title.blank?
-      @result = @movies.where("title LIKE ?", "%#{title}%")
-    else !director.blank?
-      @result = @movies.where("director LIKE ?", "%#{director}%")
+    
+    @movies = @movies.where("title LIKE ?", "%#{title}%") if !title.blank?
+    
+    @movies = @movies.where("director LIKE ?", "%#{director}%") if !director.blank?
+
+    case duration
+    when '1'
+     @movies = @movies.where("runtime_in_minutes < 90")
+    when '2'
+     @movies = @movies.where("runtime_in_minutes > 90 AND runtime_in_minutes < 120 ")
+    when '3'
+     @movies = @movies.where("runtime_in_minutes > 120")
     end
+    @movies
   end
 
   protected

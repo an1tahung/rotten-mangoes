@@ -5,10 +5,10 @@
   <p>
   <%= text_field_tag :title, params[:title], placeholder: "Search by Title" %>
   <%= text_field_tag :director, params[:director], placeholder: "Search by Director" %>
-  <%= select_tag :duration, options_from_collection_for_select(['Under 90 minutes',1],['Under 90 minutes',2], selected: :option) %>
-  <%= submit_tag "Search", :name => nil %>
+  <%= select_tag "duration", options_for_select(duration_options)%>
+  <%= submit_tag "search", :name => nil %>
   </p>
-  <% end %>
+<% end %>
 
 <hr>
 <% @movies.each do |movie| %>
