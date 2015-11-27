@@ -7,5 +7,6 @@
 <% @users.each do |user| %>
   <h2><%= user.full_name %></h2>
   <h3><%= user.email %></h3>
+  <%= link_to "delete", admin_user_path(user), method: :delete, data: {confirm: "You sure?"} %>
 <hr>
 <% end %>
