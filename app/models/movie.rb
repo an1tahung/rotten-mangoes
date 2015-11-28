@@ -1,9 +1,10 @@
 class Movie < ActiveRecord::Base
   has_many :actors
-
   has_many :reviews
-
   mount_uploader :poster_image_url, ImageUploader
+  # decided scope wasn't as readable or better 
+  # scope :titled, -> {where("title LIKE ?", "%#{title}%")} 
+  # scope :titled_and_director, -> {titled.where("director LIKE ?", "%#{director}%")}
 
   validates :title,
     presence: true
@@ -31,9 +32,7 @@ class Movie < ActiveRecord::Base
 
   def self.search(title, director,duration)
     @movies = Movie.all
-    
     @movies = @movies.where("title LIKE ?", "%#{title}%") if !title.blank?
-    
     @movies = @movies.where("director LIKE ?", "%#{director}%") if !director.blank?
 
     case duration
