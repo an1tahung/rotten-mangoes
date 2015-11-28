@@ -2,9 +2,6 @@ class Movie < ActiveRecord::Base
   has_many :actors
   has_many :reviews
   mount_uploader :poster_image_url, ImageUploader
-  # decided scope wasn't as readable or better 
-  # scope :titled, -> {where("title LIKE ?", "%#{title}%")} 
-  # scope :titled_and_director, -> {titled.where("director LIKE ?", "%#{director}%")}
 
   validates :title,
     presence: true
@@ -30,20 +27,19 @@ class Movie < ActiveRecord::Base
     reviews.sum(:rating_out_of_ten)/((reviews.size).nonzero? || 1)
   end
 
-  def self.search(title, director,duration)
-    @movies = Movie.all
-    @movies = @movies.where("title LIKE ?", "%#{title}%") if !title.blank?
-    @movies = @movies.where("director LIKE ?", "%#{director}%") if !director.blank?
-
-    case duration
+  def self.search(query, duration)
+    movies = Movie.all
+    movies = movies.where("title LIKE ? OR director LIKE ?", "%#{query}%","%#{query}%" ) if !query.blank?
+    
+    case duration 
     when '1'
-     @movies = @movies.where("runtime_in_minutes < 90")
+     movies = movies.where("runtime_in_minutes < 90")
     when '2'
-     @movies = @movies.where("runtime_in_minutes > 90 AND runtime_in_minutes < 120 ")
+     movies = movies.where("runtime_in_minutes > 90 AND runtime_in_minutes < 120 ")
     when '3'
-     @movies = @movies.where("runtime_in_minutes > 120")
+     movies = movies.where("runtime_in_minutes > 120")
     end
-    @movies
+    movies
   end
 
   protected

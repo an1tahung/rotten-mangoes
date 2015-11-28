@@ -1,8 +1,9 @@
 class MoviesController < ApplicationController
 
   def index
-    if params[:title] || params[:director] || params[:duration]
-      @movies = Movie.search(params[:title], params[:director],params[:duration]).order(title: :ASC)
+    #if search, title is always true because blank is truthy 
+    if params[:query] 
+      @movies = Movie.search(params[:query],params[:duration]).order(title: :ASC)
     else
       @movies = Movie.all.order(title: :ASC)
     end

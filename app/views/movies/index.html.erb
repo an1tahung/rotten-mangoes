@@ -3,8 +3,7 @@
 <%= link_to "Submit a movie!", new_movie_path %>
 <%= form_tag movies_path, method: "get" do %>
   <p>
-  <%= text_field_tag :title, params[:title], placeholder: "Search by Title" %>
-  <%= text_field_tag :director, params[:director], placeholder: "Search by Director" %>
+  <%= text_field_tag :query, "", placeholder: "Search by Title or Director" %>
   <%= select_tag "duration", options_for_select(duration_options)%>
   <%= submit_tag "search", :name => nil %>
   </p>
