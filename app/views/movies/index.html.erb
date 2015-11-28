@@ -12,5 +12,5 @@
 
 <hr>
 <% @movies.each do |movie| %>
-  <%= render 'movie' %>
+  <%= render partial: 'movie', object: movie %>
 <% end %>
